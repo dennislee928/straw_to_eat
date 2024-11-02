@@ -32,7 +32,7 @@ export default function Home() {
 
   const fetchRestaurants = async (district: string = districtId) => {
     const response = await fetch(
-      `https://tw.openrice.com/api/v2/search?uiLang=zh&uiCity=taipei&sortBy=ORScoreDesc&districtId=${district}&startAt=0&rows=15&pageToken=`
+      `https://tw.openrice.com/api/v2/search?uiLang=zh&uiCity=taipei&sortBy=ORScoreDesc&districtId=${district}&regionId=704&startAt=0&rows=15&pageToken=`
     );
     const data = await response.json();
     setRestaurants(data.poi || []);
