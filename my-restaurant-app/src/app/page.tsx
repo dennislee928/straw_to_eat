@@ -30,15 +30,19 @@ export default function Home() {
     fetchRestaurants();
   }, []);
 
-  const fetchRestaurants = async (district: string = districtId) => {
+  const fetchRestaurants = async (
+    district: string = districtId,
+    page: number = 5
+  ) => {
     const response = await fetch(
-      `https://tw.openrice.com/api/v2/search?uiLang=zh&uiCity=taipei&sortBy=ORScoreDesc&districtId=${district}&regionId=704&startAt=0&rows=15&pageToken=`
+      `https://tw.openrice.com/api/v2/search?uiLang=zh&uiCity=taipei&sortBy=ORScoreDesc&districtId=${district}&regionId=704&startAt=0&rows=15&pageToken=${page}`
     );
     const data = await response.json();
     setRestaurants(data.poi || []);
   };
+
   const handleSearch = async () => {
-    await fetchRestaurants(districtId); // 等待 fetchRestaurants 完成
+    await fetchRestaurants(districtId, 1); // 使用頁碼 1 進行第一次請求
     handleDraw(); // 直接調用 handleDraw
   };
 
@@ -91,13 +95,7 @@ export default function Home() {
             onClick={handleSearch}
             className="bg-blue-500 text-white p-2 rounded"
           >
-            搜尋
-          </button>
-          <button
-            onClick={handleDraw}
-            className="bg-green-500 text-white p-2 rounded"
-          >
-            抽籤
+            搜尋並抽籤
           </button>
         </div>
         {selectedRestaurant && <h2>抽中的餐廳: {selectedRestaurant}</h2>}
