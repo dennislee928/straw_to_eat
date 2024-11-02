@@ -1,8 +1,9 @@
 "use client"; // 將此組件標記為 Client Component
 
-import Image from "next/image";
-
 import { useState, useEffect } from "react";
+import Image from "next/image";
+// 導入 API 路由
+const API_URL = "/api/fetchRestaurants"; // API 路由的 URL
 
 // 定義 Restaurant 類型
 interface Restaurant {
@@ -27,15 +28,15 @@ export default function Home() {
 
   // 初始 fetch
   useEffect(() => {
-    fetchRestaurants();
-  }, []);
+    fetchRestaurants(districtId); // 在組件加載時獲取餐廳
+  }, [districtId]);
 
   const fetchRestaurants = async (
     district: string = districtId,
-    page: number = 5
+    page: number = 1
   ) => {
     const response = await fetch(
-      `https://tw.openrice.com/api/v2/search?uiLang=zh&uiCity=taipei&sortBy=ORScoreDesc&districtId=${district}&regionId=704&startAt=0&rows=15&pageToken=${page}`
+      `${API_URL}?districtId=${district}&page=${page}`
     );
     const data = await response.json();
     setRestaurants(data.poi || []);
