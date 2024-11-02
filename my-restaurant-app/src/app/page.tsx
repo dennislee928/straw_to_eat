@@ -3,22 +3,26 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 
-// 導入 API 路由
 const API_URL = "https://api.thecatapi.com/v1/images/search?limit=10"; // Cat API 路由的 URL
 const API_KEY =
-  "live_kKhDHypr9Dg1i36BGQR8BEJ7xCnM2J0nqKDLxaFqyebOIN7HttP1dxujwzLq9xr4"; // API 金鑰
+  "live_kKhDHypr9Dg1i36BGQR8BEJ7xCnM2J0nqKDLxaFqyebOIN7HttP1dxujwzLq9xr4"; // 請替換為你的 API 金鑰
 
-// 定義 Cat 類型
 interface Cat {
   id: string;
   url: string;
+  breeds: {
+    name: string;
+    temperament: string;
+    life_span: string;
+    origin: string;
+    wikipedia_url: string;
+  }[];
 }
 
 export default function Home() {
   const [cats, setCats] = useState<Cat[]>([]);
   const [selectedCat, setSelectedCat] = useState<string>("");
 
-  // 獲取貓咪圖片
   const fetchCats = async () => {
     const response = await fetch(API_URL, {
       headers: {
@@ -26,7 +30,6 @@ export default function Home() {
       },
     });
     const data = await response.json();
-    console.log(data); // 檢查獲取的數據
     setCats(data);
   };
 
@@ -35,7 +38,6 @@ export default function Home() {
   }, []);
 
   const handleDraw = () => {
-    fetchCats();
     if (cats.length > 0) {
       const randomIndex = Math.floor(Math.random() * cats.length);
       setSelectedCat(cats[randomIndex].url);
@@ -65,11 +67,25 @@ export default function Home() {
           {cats.map((cat) => (
             <li key={cat.id}>
               <Image src={cat.url} alt="貓咪" width={100} height={100} />
+              {cat.breeds.length > 0 && (
+                <div>
+                  <h2>{cat.breeds[0].name}</h2>
+                  <p>性格: {cat.breeds[0].temperament}</p>
+                  <p>壽命: {cat.breeds[0].life_span}</p>
+                  <p>來源: {cat.breeds[0].origin}</p>
+                  <a
+                    href={cat.breeds[0].wikipedia_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    了解更多
+                  </a>
+                </div>
+              )}
             </li>
           ))}
         </ul>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center"></footer>
     </div>
   );
 }
