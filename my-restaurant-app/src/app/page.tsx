@@ -13,22 +13,32 @@ export default function Home() {
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [searchParam, setSearchParam] = useState<string>("");
   const [selectedRestaurant, setSelectedRestaurant] = useState<string>("");
+  const [districtId, setDistrictId] = useState<string>("1007"); // 預設為大安區
+
+  // 區域選項
+  const districts = [
+    { name: "大安", id: "1007" },
+    { name: "信義", id: "1010" },
+    { name: "中山", id: "1006" },
+    { name: "士林", id: "1001" },
+    { name: "內湖", id: "1003" },
+  ];
 
   // 初始 fetch
   useEffect(() => {
     fetchRestaurants();
   }, []);
 
-  const fetchRestaurants = async (param: string = "") => {
+  const fetchRestaurants = async (district: string = districtId) => {
     const response = await fetch(
-      `https://tw.openrice.com/api/v2/search?uiLang=zh&uiCity=taipei&sortBy=ORScoreDesc&districtId=1007&regionId=704&startAt=0&rows=15&pageToken=${param}`
+      `https://tw.openrice.com/api/v2/search?uiLang=zh&uiCity=taipei&sortBy=ORScoreDesc&districtId=${district}&startAt=0&rows=15&pageToken=`
     );
     const data = await response.json();
     setRestaurants(data.poi || []);
   };
 
   const handleSearch = () => {
-    fetchRestaurants(searchParam);
+    fetchRestaurants(searchParam, districtId);
   };
 
   const handleDraw = () => {
@@ -50,6 +60,20 @@ export default function Home() {
           priority
         />
         <h1 className="text-2xl">餐廳搜尋</h1>
+        {/* 下拉式選單 */}
+        <select
+          value={districtId}
+          onChange={(e) => setDistrictId(e.target.value)}
+          className="border p-2 rounded"
+          aria-label="選擇行政區"
+        >
+          {districts.map((district) => (
+            <option key={district.id} value={district.id}>
+              {district.name}
+            </option>
+          ))}
+        </select>
+
         <input
           type="text"
           value={searchParam}
