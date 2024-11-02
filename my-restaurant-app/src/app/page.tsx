@@ -67,6 +67,9 @@ export default function Home() {
           className="border p-2 rounded"
           aria-label="選擇行政區"
         >
+          <option value="" disabled>
+            選擇行政區
+          </option>
           {districts.map((district) => (
             <option key={district.id} value={district.id}>
               {district.name}
