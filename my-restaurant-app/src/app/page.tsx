@@ -53,7 +53,7 @@ export default function Home() {
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
         <Image
           className="dark:invert"
-          src="my-restaurant-app/src/app/assets/lin.jpeg"
+          src="https://megapx-assets.dcard.tw/images/0150ce6c-22fb-462e-a3f2-d45e2a8d603f/1280.jpeg"
           alt="Next.js logo"
           width={180}
           height={38}
@@ -114,7 +114,7 @@ export default function Home() {
         >
           <Image
             aria-hidden
-            src="/file.svg"
+            src="https://megapx-assets.dcard.tw/images/0150ce6c-22fb-462e-a3f2-d45e2a8d603f/1280.jpeg"
             alt="File icon"
             width={16}
             height={16}
