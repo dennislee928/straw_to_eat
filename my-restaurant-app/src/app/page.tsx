@@ -1,6 +1,7 @@
 "use client"; // 將此組件標記為 Client Component
 
 import Image from "next/image";
+
 import { useState, useEffect } from "react";
 
 // 定義 Restaurant 類型
@@ -36,9 +37,8 @@ export default function Home() {
     const data = await response.json();
     setRestaurants(data.poi || []);
   };
-
   const handleSearch = () => {
-    fetchRestaurants(searchParam, districtId);
+    fetchRestaurants(districtId);
   };
 
   const handleDraw = () => {
@@ -53,7 +53,7 @@ export default function Home() {
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
         <Image
           className="dark:invert"
-          src="/next.svg"
+          src="my-restaurant-app/src/app/assets/lin.jpeg"
           alt="Next.js logo"
           width={180}
           height={38}
