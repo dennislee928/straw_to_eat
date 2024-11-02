@@ -24,13 +24,21 @@ export default function Home() {
   const [selectedCat, setSelectedCat] = useState<string>("");
 
   const fetchCats = async () => {
-    const response = await fetch(API_URL, {
-      headers: {
-        "x-api-key": API_KEY,
-      },
-    });
-    const data = await response.json();
-    setCats(data);
+    try {
+      const response = await fetch(API_URL, {
+        headers: {
+          "x-api-key": API_KEY,
+        },
+      });
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      console.log(data); // 檢查獲取的數據
+      setCats(data);
+    } catch (error) {
+      console.error("Fetch error:", error);
+    }
   };
 
   useEffect(() => {
