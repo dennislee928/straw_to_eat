@@ -37,8 +37,9 @@ export default function Home() {
     const data = await response.json();
     setRestaurants(data.poi || []);
   };
-  const handleSearch = () => {
-    fetchRestaurants(districtId);
+  const handleSearch = async () => {
+    await fetchRestaurants(districtId); // 等待 fetchRestaurants 完成
+    handleDraw(); // 直接調用 handleDraw
   };
 
   const handleDraw = () => {
@@ -58,6 +59,7 @@ export default function Home() {
           width={180}
           height={38}
           priority
+          unoptimized
         />
         <h1 className="text-2xl">餐廳搜尋</h1>
         {/* 下拉式選單 */}
