@@ -55,7 +55,7 @@ export default function Home() {
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <h1 className="text-2xl">貓咪圖片搜尋</h1>
+        <h1 className="text-2xl">Caas(Cat-as-a-servece)</h1>
         <button
           onClick={handleDraw}
           className="bg-blue-500 text-white p-2 rounded"
