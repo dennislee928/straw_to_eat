@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 
 // 導入 API 路由
-const API_URL = "https://api.thecatapi.com/v1/images/search"; // Cat API 路由的 URL
+const API_URL = "https://api.thecatapi.com/v1/images/search?limit=10"; // Cat API 路由的 URL
 const API_KEY =
   "live_kKhDHypr9Dg1i36BGQR8BEJ7xCnM2J0nqKDLxaFqyebOIN7HttP1dxujwzLq9xr4"; // API 金鑰
 
@@ -34,6 +34,7 @@ export default function Home() {
   }, []);
 
   const handleDraw = () => {
+    fetchCats();
     if (cats.length > 0) {
       const randomIndex = Math.floor(Math.random() * cats.length);
       setSelectedCat(cats[randomIndex].url);
@@ -48,7 +49,7 @@ export default function Home() {
           onClick={handleDraw}
           className="bg-blue-500 text-white p-2 rounded"
         >
-          抽籤
+          抽貓咪
         </button>
         {selectedCat && (
           <Image
