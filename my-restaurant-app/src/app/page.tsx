@@ -26,11 +26,7 @@ export default function Home() {
     { name: "內湖", id: "1003" },
   ];
 
-  // 初始 fetch
-  useEffect(() => {
-    fetchRestaurants(districtId); // 在組件加載時獲取餐廳
-  }, [districtId]);
-
+  // 將 fetchRestaurants 移到 useEffect 之前
   const fetchRestaurants = async (
     district: string = districtId,
     page: number = 1
@@ -41,6 +37,10 @@ export default function Home() {
     const data = await response.json();
     setRestaurants(data.poi || []);
   };
+
+  useEffect(() => {
+    fetchRestaurants(districtId); // 在組件加載時獲取餐廳
+  }, [districtId]);
 
   const handleSearch = async () => {
     await fetchRestaurants(districtId, 1); // 使用頁碼 1 進行第一次請求
