@@ -9,9 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "react": "19.0.0-rc-02c0e824-20241028",
+
+    "react": "19.1.0",
     "react-dom": "19.0.0-rc-02c0e824-20241028",
+
     "next": "15.3.3"
+
   },
   "devDependencies": {
     "typescript": "^5",
